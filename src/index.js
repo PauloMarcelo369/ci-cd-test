@@ -14,6 +14,10 @@ app.get("/feijao", (req, res) => {
   res.send("feijao preto!");
 });
 
+app.get("/mamute", (req, res) => {
+  res.send("mamutes estão extintos!");
+});
+
 const PORT = process.env.PORT || 5111;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
