@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.VM_PASS }}
           port: 2221
           script: |
-            cd ~/api-simples
+            cd ~/teste/ci-cd-test
             git pull
             docker-compose down
             docker-compose up -d --build
