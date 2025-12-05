@@ -1,0 +1,43 @@
+name: CI/CD API
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: echo "Aqui podem ir seus testes"
+
+      - name: Run tests
+        run: docker build -t api-simples .
+
+      - name: Build Docker image
+        run: docker build -t api-simples .
+
+      - name: Deploy to VM via SSH (password)
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          password: ${{ secrets.VM_PASS }}
+          port: 2221
+          script: |
+            cd ~/api-simples
+            git pull
+            docker-compose down
+            docker-compose up -d --build
